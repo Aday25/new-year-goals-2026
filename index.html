@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Que se cumplan tus propósitos ✨ 2026</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Un pequeño ritual para cerrar el año y dar forma a tus propósitos para 2026 ✨" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="✨ Bienvenido 2026 ✨" />
+  <meta property="og:description" content="Crea tus propósitos y guárdalos como recuerdo." />
+  <meta property="og:image" content="assets/preview.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+
+<canvas id="background"></canvas>
+
+<main>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <h1 id="year">2025</h1>
+    <p id="countdown"></p>
+
+    <p class="intro-text">
+      El tiempo avanza.<br>
+      Lo que deseas… también.
+    </p>
+
+    <span class="tap">Toca para comenzar ✨</span>
+  </section>
+
+  <!-- NOMBRE -->
+  <section id="user" class="hidden">
+    <h2>Antes de continuar…</h2>
+    <p>¿Cómo te llamas?</p>
+    <input id="username" type="text" placeholder="Tu nombre" />
+    <button id="save-name">Continuar</button>
+  </section>
+
+  <!-- SUGERENCIAS -->
+  <section id="suggestions" class="hidden">
+    <h2>🤔 ¿Qué te gustaría conseguir en 2026? ✨</h2>
+    <p class="hint">
+      Elige las metas que deseas alcanzar.<br>
+      Al clicar en "Continuar", también podrás crear las tuyas propias.
+    </p>
+    <ul id="suggestions-list"></ul>
+    <button id="continue-to-goals">Continuar</button>
+  </section>
+
+  <!-- PROPÓSITOS -->
+  <section id="goals" class="hidden">
+    <h1 id="pdf-title"></h1>
+
+    <p class="hint">
+      No tienen que ser perfectos.<br>
+      Solo tienen que ser tuyos.
+    </p>
+
+    <form id="goals-form"></form>
+
+    <button id="add-goal">Añadir otro propósito</button>
+    <button id="download-pdf">Descargar plan en PDF</button>
+  </section>
+
+  <!-- FINAL -->
+  <section id="final" class="hidden">
+    <h1 class="gold">🥂 ¡Feliz 2026! ✨</h1>
+    <p class="intro-text">
+      Es maravilloso detenerte a pensar en ti.<br>
+      Ese es siempre el mejor comienzo.
+    </p>
+    <p>
+      Ojalá este año se cumplan tus deseos,<br>
+      tus propósitos y todo lo bueno que aún no sabes que te espera.
+    </p>
+  </section>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="scripts/background.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/pdf.js"></script>
+
+</body>
+</html>
