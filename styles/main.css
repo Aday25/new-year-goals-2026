@@ -360,7 +360,7 @@ button:active {
   text-align: center;
   max-width: 800px;
   width: 100%;
-  padding: 2rem;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -369,9 +369,9 @@ button:active {
 
 .hourglass-wrapper {
   position: relative;
-  margin: 0 auto 3rem;
-  width: 300px;
-  height: 400px;
+  margin: 0 auto 3px;
+  width: 140px;
+  height: 240px;
   display: flex;
   justify-content: center;
   align-items: center;

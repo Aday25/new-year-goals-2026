@@ -1,5 +1,3 @@
-// ========== CAPSULE.JS - GENERACIÓN DE IMAGEN MEJORADA ==========
-
 document.addEventListener('DOMContentLoaded', function() {
   // Obtener elementos del DOM
   const wordOptions = document.querySelectorAll('.word-option');
@@ -290,7 +288,9 @@ async function generateCapsuleImage() {
     y += 85;
     
     if (isWord) {
-      // PALABRA DEL AÑO - ajustar tamaño si es muy larga
+      // PALABRA DEL AÑO - más espacio arriba, menos abajo
+      y += 20; // Espacio extra antes de la palabra
+      
       const wordText = `"${text}"`;
       const fontSize = getFontSizeForText(wordText, 75, maxWidth - 100);
       
@@ -298,18 +298,18 @@ async function generateCapsuleImage() {
       ctx.fillStyle = '#2c1810';
       ctx.textAlign = 'center';
       ctx.fillText(wordText, canvas.width / 2, y);
-      y += fontSize + 50;
+      y += fontSize + 15; // Reducido de 50 a 15
     } else {
-      // TEXTO NORMAL - envuelto correctamente
+      // TEXTO NORMAL - CENTRADO y envuelto correctamente
       ctx.font = 'normal 42px "Caveat", cursive';
       ctx.fillStyle = '#3e2723';
-      ctx.textAlign = 'left';
+      ctx.textAlign = 'center'; // Cambiado a center
       
       const lines = wrapText(text, maxWidth);
       const lineHeight = 52;
       
       for (let line of lines) {
-        ctx.fillText(line, margin, y);
+        ctx.fillText(line, canvas.width / 2, y); // Centrado en lugar de margin
         y += lineHeight;
       }
       
@@ -397,7 +397,7 @@ async function generateCapsuleImage() {
   ctx.fillText('Nos vemos dentro de un año ✨', canvas.width / 2, y);
   y += 70;
   
-  ctx.font = 'italic 38px "Caveat", cursive';
+  ctx.font = 'italic 54px "Caveat", cursive';
   ctx.fillStyle = '#8b7765';
   ctx.fillText('Con amor, tu yo de diciembre 2025', canvas.width / 2, y);
   
@@ -469,9 +469,10 @@ function calculateRequiredHeight(ctx) {
       height += 52 + 85; // Título de sección
       
       if (section.isWord) {
+        height += 20; // Espacio extra antes de la palabra
         const wordText = `"${section.text}"`;
         const fontSize = getFontSizeForText(wordText, 75, maxWidth - 100);
-        height += fontSize + 50;
+        height += fontSize + 15; // Ajustado igual que en la generación
       } else {
         const lines = measureWrappedText(section.text, 'normal 42px "Caveat", cursive', maxWidth);
         height += (lines * 52) + 30;

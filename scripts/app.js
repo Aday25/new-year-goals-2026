@@ -1,4 +1,4 @@
-// ========== APP.JS - LÓGICA PRINCIPAL (con reloj de arena simplificado) ==========
+// ========== APP.JS - LÓGICA PRINCIPAL (con audio mejorado para móviles) ==========
 
 // Objeto global para almacenar los datos de la cápsula
 window.capsuleData = {
@@ -362,7 +362,7 @@ function updateCountdown() {
     `Faltan ${days}d ${hours}h ${minutes}m ${seconds}s para 2026`;
 }
 
-// CONTROL DE AUDIO CON MP3 (new-year.mp3)
+// CONTROL DE AUDIO CON MP3 (new-year.mp3) - MEJORADO PARA MÓVILES
 function startAmbientMusic() {
   if (audioStarted) return;
   
@@ -381,12 +381,7 @@ function startAmbientMusic() {
     playPromise.then(() => {
       audioPlaying = true;
       audioStarted = true;
-      
-      if (audioToggle) {
-        audioToggle.textContent = '🔊';
-        audioToggle.classList.add('playing');
-        audioToggle.title = 'Música activada (click para silenciar)';
-      }
+      updateAudioButton();
     }).catch(error => {
       console.log('Reproducción automática bloqueada:', error);
       
@@ -394,16 +389,6 @@ function startAmbientMusic() {
         audioToggle.textContent = '▶️';
         audioToggle.title = 'Click para activar la música';
         audioToggle.classList.remove('playing');
-        
-        audioToggle.onclick = function() {
-          bgMusic.play();
-          audioPlaying = true;
-          audioStarted = true;
-          audioToggle.textContent = '🔊';
-          audioToggle.classList.add('playing');
-          audioToggle.title = 'Música activada (click para silenciar)';
-          audioToggle.onclick = toggleAudio;
-        };
       }
     });
   }
@@ -419,25 +404,60 @@ function startAmbientMusic() {
   });
 }
 
-function toggleAudio() {
+function updateAudioButton() {
+  const audioToggle = document.getElementById('audioToggle');
+  if (!audioToggle) return;
+  
+  if (audioPlaying) {
+    audioToggle.textContent = '🔊';
+    audioToggle.classList.add('playing');
+    audioToggle.title = 'Música activada (click para silenciar)';
+  } else {
+    audioToggle.textContent = '🔇';
+    audioToggle.classList.remove('playing');
+    audioToggle.title = 'Música desactivada (click para activar)';
+  }
+}
+
+function toggleAudio(e) {
+  // Prevenir comportamiento por defecto
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
   const bgMusic = document.getElementById('bgMusic');
   const audioToggle = document.getElementById('audioToggle');
   
   if (!bgMusic || !audioToggle) return;
   
-  if (audioPlaying) {
-    bgMusic.pause();
-    audioPlaying = false;
-    audioToggle.textContent = '🔇';
-    audioToggle.classList.remove('playing');
-    audioToggle.title = 'Música desactivada (click para activar)';
-  } else {
-    bgMusic.play();
-    audioPlaying = true;
-    audioToggle.textContent = '🔊';
-    audioToggle.classList.add('playing');
-    audioToggle.title = 'Música activada (click para silenciar)';
-  }
+  // Usar un pequeño delay para asegurar que el evento se procesa correctamente
+  setTimeout(() => {
+    if (audioPlaying) {
+      // Pausar música
+      bgMusic.pause();
+      audioPlaying = false;
+      audioStarted = true; // Mantener como iniciado
+    } else {
+      // Reproducir música
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audioPlaying = true;
+          audioStarted = true;
+          updateAudioButton();
+        }).catch(err => {
+          console.error('Error al reproducir:', err);
+          audioPlaying = false;
+          updateAudioButton();
+        });
+      }
+    }
+    
+    updateAudioButton();
+  }, 10);
+  
+  return false;
 }
 
 // RELOJ DE ARENA SIMPLIFICADO
@@ -476,8 +496,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // RELOJ DE ARENA SIMPLIFICADO - Event Listener
   const hourglassGif = document.getElementById('hourglassGif');
-  const skipButton = document.getElementById('skipHourglass');
-  
   
   // Configurar el clic en el reloj
   if (hourglassGif) {
@@ -488,10 +506,21 @@ document.addEventListener('DOMContentLoaded', function() {
     hourglassGif.style.cursor = 'pointer';
   }
   
-  // Control de audio
+  // Control de audio - MEJORADO PARA MÓVILES
   const audioToggle = document.getElementById('audioToggle');
   if (audioToggle) {
+    // Usar tanto click como touchend para máxima compatibilidad
     audioToggle.addEventListener('click', toggleAudio);
+    audioToggle.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      toggleAudio(e);
+    }, { passive: false });
+    
+    // Añadir estilos para mejor interacción táctil
+    audioToggle.style.userSelect = 'none';
+    audioToggle.style.webkitUserSelect = 'none';
+    audioToggle.style.webkitTouchCallout = 'none';
+    audioToggle.style.touchAction = 'manipulation';
   }
   
   // Navegación principal
