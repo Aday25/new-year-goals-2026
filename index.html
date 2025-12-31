@@ -1,99 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cápsula del Tiempo 2026 ✨</title>
 
-  <title>Que se cumplan tus propósitos ✨ 2026</title>
+  <meta name="description"
+    content="Crea tu cápsula del tiempo emocional para cerrar 2025 y abrir 2026 con intención ✨" />
 
-  <!-- SEO -->
-  <meta name="description" content="Un pequeño ritual para cerrar el año y dar forma a tus propósitos para 2026 ✨" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="✨ Bienvenido 2026 ✨" />
-  <meta property="og:description" content="Crea tus propósitos y guárdalos como recuerdo." />
-  <meta property="og:image" content="assets/preview.jpg" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="es_ES" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <link rel="stylesheet" href="styles/main.css" />
+  <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <body>
 
-<canvas id="background"></canvas>
+  <canvas id="background"></canvas>
 
-<main>
+  <!-- CONTROL DE AUDIO -->
+  <div class="audio-control" id="audioToggle" title="Activar/desactivar música">🔇</div>
 
-  <!-- INTRO -->
-  <section id="intro">
-    <h1 id="year">2025</h1>
-    <p id="countdown"></p>
+  <!-- AUDIO PARA LA MÚSICA -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="audio/new-year.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+  </audio>
 
-    <p class="intro-text">
-      El tiempo avanza.<br>
-      Lo que deseas… también.
-    </p>
+  <main>
 
-    <span class="tap">Toca para comenzar ✨</span>
-  </section>
+    <!-- PANTALLA INICIAL - RELOJ DE ARENA -->
+    <section id="hourglass-screen">
+      <div class="hourglass-container">
+        <div class="hourglass-wrapper">
+          <!-- Reloj de arena animado -->
+          <img src="images/hourglass.gif" alt="Reloj de arena" class="hourglass-gif" id="hourglassGif">
+          <div class="hourglass-shadow"></div>
+        </div>
 
-  <!-- NOMBRE -->
-  <section id="user" class="hidden">
-    <h2>Antes de continuar…</h2>
-    <p>¿Cómo te llamas?</p>
-    <input id="username" type="text" placeholder="Tu nombre" />
-    <button id="save-name">Continuar</button>
-  </section>
+        <div class="hourglass-text-container">
+          <h1 class="hourglass-title">Como pasa el tiempo...</h1>
+          <p class="hourglass-subtitle">El 2025 termina,</p>
+          <p class="hourglass-message">pero los recuerdos perduran.</p>
+          <h3 class="hourglass-instruction">Haz click el reloj</h3>
 
-  <!-- SUGERENCIAS -->
-  <section id="suggestions" class="hidden">
-    <h2>🤔 ¿Qué te gustaría conseguir en 2026? ✨</h2>
-    <p class="hint">
-      Elige las metas que deseas alcanzar.<br>
-      Al clicar en "Continuar", también podrás crear las tuyas propias.
-    </p>
-    <ul id="suggestions-list"></ul>
-    <button id="continue-to-goals">Continuar</button>
-  </section>
+    </section>
 
-  <!-- PROPÓSITOS -->
-  <section id="goals" class="hidden">
-    <h1 id="pdf-title"></h1>
 
-    <p class="hint">
-      No tienen que ser perfectos.<br>
-      Solo tienen que ser tuyos.
-    </p>
+    <!-- INTRO -->
+    <section id="intro">
+      <h1 id="year">2025</h1>
+      <p id="countdown"></p>
 
-    <form id="goals-form"></form>
+      <p class="intro-text">
+        Diciembre 2025 está terminando...<br>
+        Dentro de un año volverás aquí.<br><br>
+        ¿Qué quieres recordar de este momento?
+      </p>
 
-    <button id="add-goal">Añadir otro propósito</button>
-    <button id="download-pdf">Descargar plan en PDF</button>
-  </section>
+      <button id="start-journey" class="tap">Comienza tu viaje ✨</button>
+    </section>
 
-  <!-- FINAL -->
-  <section id="final" class="hidden">
-    <h1 class="gold">🥂 ¡Feliz 2026! ✨</h1>
-    <p class="intro-text">
-      Es maravilloso detenerte a pensar en ti.<br>
-      Ese es siempre el mejor comienzo.
-    </p>
-    <p>
-      Ojalá este año se cumplan tus deseos,<br>
-      tus propósitos y todo lo bueno que aún no sabes que te espera.
-    </p>
-  </section>
+    <!-- NOMBRE -->
+    <section id="user" class="hidden">
+      <h2>Antes de empezar...</h2>
+      <p class="intro-text">Este es un momento solo para ti.<br>¿Cómo te llamas?</p>
+      <input id="username" type="text" placeholder="Tu nombre" />
+      <button id="save-name">Continuar</button>
+    </section>
 
-</main>
+    <!-- MIRANDO ATRÁS - 2025 -->
+    <section id="looking-back" class="hidden">
+      <h2>Mirando atrás 📖</h2>
+      <p class="hint">Reflexiona sobre este 2025 que termina</p>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="scripts/background.js"></script>
-<script src="scripts/app.js"></script>
-<script src="scripts/pdf.js"></script>
+      <div class="question-block">
+        <label>¿Cuál fue tu mayor logro este año?</label>
+        <textarea id="achievement"
+          placeholder="Puede ser algo grande o pequeño... lo importante es que te hace sentir orgullos@"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Qué obstáculo superaste?</label>
+        <textarea id="obstacle" placeholder="Algo difícil que enfrentaste y lograste atravesar"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Qué persona fue importante para ti y por qué?</label>
+        <textarea id="person" placeholder="Alguien que te marcó, te ayudó, o simplemente estuvo ahí"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Qué momento te gustaría revivir?</label>
+        <textarea id="moment" placeholder="Un instante que te hizo sonreír o sentir viv@"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Cómo te sientes ahora mismo? (honestamente)</label>
+        <textarea id="feeling" placeholder="Sin filtros. ¿Cansad@? ¿Esperanzad@? ¿Confundid@? Todo vale"></textarea>
+      </div>
+
+      <button id="continue-letting-go">Continuar</button>
+    </section>
+
+    <!-- SOLTANDO -->
+    <section id="letting-go" class="hidden">
+      <h2>Soltando 🍂</h2>
+      <p class="hint">Escribe 3 cosas que dejas en 2025<br><small>(Al escribirlas, las verás desvanecerse... es
+          simbólico)</small></p>
+
+      <div class="letting-go-container">
+        <div class="fade-item">
+          <input type="text" id="release1" placeholder="1. Algo que ya no te sirve..." />
+          <div class="fade-effect"></div>
+        </div>
+        <div class="fade-item">
+          <input type="text" id="release2" placeholder="2. Un miedo, un hábito, una duda..." />
+          <div class="fade-effect"></div>
+        </div>
+        <div class="fade-item">
+          <input type="text" id="release3" placeholder="3. Algo que necesitas dejar ir..." />
+          <div class="fade-effect"></div>
+        </div>
+      </div>
+
+      <button id="continue-looking-forward">Continuar</button>
+    </section>
+
+    <!-- MIRANDO ADELANTE - 2026 -->
+    <section id="looking-forward" class="hidden">
+      <h2>Mirando adelante 🌅</h2>
+      <p class="hint">Imagina tu 2026 con esperanza</p>
+
+      <div class="question-block">
+        <label>¿Cómo quieres sentirte en diciembre de 2026?</label>
+        <textarea id="future-feeling" placeholder="¿En paz? ¿Orgullos@? ¿Libre? ¿Plen@?"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Qué versión de ti quieres encontrar?</label>
+        <textarea id="future-self" placeholder="Describe a la persona que quieres ser dentro de un año"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>¿Qué te da miedo pero te emociona intentar?</label>
+        <textarea id="scary-exciting" placeholder="Ese reto que te asusta y te llama a la vez"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>Si todo sale bien, ¿qué estarás celebrando dentro de un año?</label>
+        <textarea id="celebrating" placeholder="Tu mejor escenario posible para diciembre 2026"></textarea>
+      </div>
+
+      <button id="continue-word">Continuar</button>
+    </section>
+
+    <!-- PALABRA DEL AÑO -->
+    <section id="word-section" class="hidden">
+      <h2>Tu palabra del año ✨</h2>
+      <p class="hint">Elige UNA palabra que será tu mantra en 2026</p>
+
+      <div class="word-suggestions">
+        <span class="word-option" data-word="Valentía">Valentía</span>
+        <span class="word-option" data-word="Paz">Paz</span>
+        <span class="word-option" data-word="Crecimiento">Crecimiento</span>
+        <span class="word-option" data-word="Libertad">Libertad</span>
+        <span class="word-option" data-word="Amor">Amor</span>
+        <span class="word-option" data-word="Fuerza">Fuerza</span>
+        <span class="word-option" data-word="Claridad">Claridad</span>
+        <span class="word-option" data-word="Alegría">Alegría</span>
+      </div>
+
+      <p class="hint" style="margin-top: 20px;">O escribe la tuya:</p>
+      <input type="text" id="custom-word" placeholder="Tu palabra..." maxlength="20" />
+
+      <div id="word-display" class="hidden">
+        <p class="hint">Tu palabra es:</p>
+        <h1 class="chosen-word"></h1>
+      </div>
+
+      <button id="continue-commitment">Continuar</button>
+    </section>
+
+    <!-- COMPROMISO -->
+    <section id="commitment" class="hidden">
+      <h2>Compromiso contigo 💝</h2>
+      <p class="hint">Completa estas promesas para ti mism@</p>
+
+      <div class="question-block">
+        <label>En 2026 me comprometo a...</label>
+        <textarea id="promise" placeholder="Un compromiso real y honesto contigo"></textarea>
+      </div>
+
+      <div class="question-block">
+        <label>Cuando esto sea difícil, recordaré que...</label>
+        <textarea id="reminder" placeholder="Tu ancla, tu razón, tu motivación"></textarea>
+      </div>
+
+      <button id="generate-capsule">Sellar mi cápsula ✨</button>
+    </section>
+
+    <!-- FINAL CON FUEGOS -->
+    <section id="final" class="hidden">
+      <h1 class="gold">🥂 ¡Feliz 2026, <span id="final-name"></span>! ✨</h1>
+
+      <p class="intro-text">
+        Tu cápsula está lista.<br>
+        Guárdala con cariño.<br><br>
+        Ábrela en diciembre de 2026.<br>
+        Nos vemos dentro de un año.
+      </p>
+
+      <button id="download-capsule">Descargar mi cápsula 💌</button>
+
+      <p class="hint" style="margin-top: 30px;">
+        Este es tu año.<br>
+        ✨ ¡Que sea increíble! ✨
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Scripts en el orden correcto -->
+  <script src="scripts/background.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/capsule.js"></script>
 
 </body>
+
 </html>
